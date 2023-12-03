@@ -17,8 +17,8 @@ func main() {
 		return
 	}
 
-	var gamePowers []int
-	
+	powersTotal := 0
+
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		colors := map[string]int{
@@ -38,14 +38,9 @@ func main() {
 				}
 			}
 		}
-		
-		gamePowers = append(gamePowers, colors["red"] * colors["green"] * colors["blue"])
+
+		powersTotal += colors["red"] * colors["green"] * colors["blue"]
 	}
 
-	total := 0
-	for _, num := range gamePowers {
-		total += num
-	}
-
-	fmt.Println("Total:", total)
+	fmt.Println("Total:", powersTotal)
 }

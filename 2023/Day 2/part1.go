@@ -17,7 +17,7 @@ func main() {
 		return
 	}
 
-	var possibleGames []int
+	total := 0
 	colors := map[string]int{
 		"red":   12,
 		"green": 13,
@@ -43,13 +43,8 @@ func main() {
 		}
 
 		if possible {
-			possibleGames = append(possibleGames, gameId)
+			total += gameId
 		}
-	}
-
-	total := 0
-	for _, num := range possibleGames {
-		total += num
 	}
 
 	fmt.Println("Total:", total)
