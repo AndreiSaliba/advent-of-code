@@ -9,51 +9,45 @@ import (
 )
 
 func main() {
-	file, err := os.ReadFile("test.txt")
+	file, err := os.ReadFile("input.txt")
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return
 	}
 
-	sections := strings.Split(strings.ReplaceAll(string(file), "\n\r", "\n\n"), "\n\n")
-	seeds := strings.Split(sections[0][strings.Index(sections[0], ":")+2:], " ")
-	var seedMappings []int
+	sections := strings.Split(strings.ReplaceAll(strings.TrimSuffix(string(file), "\n"), "\n\r", "\n\n"), "\n\n")
+	strSeeds := strings.Split(sections[0][strings.Index(sections[0], ":")+2:], " ")
 
-	for _, i := range seeds {
+	var seeds []int
+	for _, i := range strSeeds {
 		seedInt, err := strconv.Atoi(strings.TrimSpace(i))
 		if err == nil {
-			seedMappings = append(seedMappings, seedInt)
+			seeds = append(seeds, seedInt)
 		}
 	}
 
 	for _, section := range sections[1:] {
-		for i, seed := range seedMappings {
+		for i, seed := range seeds {
 			if i == 0 {
-				seedMappings = seedMappings[:0]
+				seeds = seeds[:0]
 			}
 
-			seedMappings = append(seedMappings, GetMapResult(section, seed))
+			seeds = append(seeds, GetMapResult(section, seed))
 		}
-		fmt.Println(seedMappings)
 	}
 
-	fmt.Println("Closest Location:", slices.Min(seedMappings))
+	fmt.Println("Closest Location:", slices.Min(seeds))
 }
 
 func GetMapResult(almanacMap string, input int) int {
 	ranges := strings.Split(almanacMap, "\n")[2:]
 
-	for _, rangeString := range ranges {
-		if rangeString != "" {
-			splitRangeString := strings.Split(rangeString, " ")
+	for _, rangeStr := range ranges {
+		var dest, src, r int
+		fmt.Sscanf(strings.TrimSpace(rangeStr), "%d %d %d", &dest, &src, &r)
 
-			destination, _ := strconv.Atoi(strings.TrimSpace(splitRangeString[0]))
-			source, _ := strconv.Atoi(strings.TrimSpace(splitRangeString[1]))
-			r, _ := strconv.Atoi(strings.TrimSpace(splitRangeString[2]))
-
-			if input >= source && input <= source+r {
-				return destination + (input - source)
-			}
+		if input >= src && input <= src+r {
+			return dest + (input - src)
 		}
 	}
 
