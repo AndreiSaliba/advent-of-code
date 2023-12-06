@@ -6,6 +6,7 @@ import (
 	"slices"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func main() {
@@ -17,6 +18,7 @@ func main() {
 
 	sections := strings.Split(strings.ReplaceAll(strings.TrimSuffix(string(file), "\n"), "\n\r", "\n\n"), "\n\n")
 	strSeeds := strings.Split(sections[0][strings.Index(sections[0], ":")+2:], " ")
+	start := time.Now()
 
 	var seeds []int
 	for _, i := range strSeeds {
@@ -36,6 +38,7 @@ func main() {
 		}
 	}
 
+	fmt.Println("Done in", time.Since(start))
 	fmt.Println(slices.Min(seeds))
 }
 

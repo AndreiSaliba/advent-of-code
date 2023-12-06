@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type Seed struct {
@@ -22,6 +23,7 @@ func main() {
 
 	sections := strings.Split(strings.ReplaceAll(strings.TrimSuffix(string(file), "\n"), "\n\r", "\n\n"), "\n\n")
 	strSeeds := strings.Split(sections[0][strings.Index(sections[0], ":")+2:], " ")
+	start := time.Now()
 
 	var seeds []Seed
 	for i := 0; i < len(strSeeds); i += 2 {
@@ -72,6 +74,6 @@ func main() {
 			min = s.Start
 		}
 	}
+	fmt.Println("Done in", time.Since(start))
 	fmt.Println(min)
 }
-
