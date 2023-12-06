@@ -22,23 +22,20 @@ func main() {
 	start := time.Now()
 
 	var winningTimesCounts []int
-	var winningTimes []int
 
 	timeInt, _ := strconv.Atoi(strings.TrimSpace(timeStr))
 	distance, _ := strconv.Atoi(strings.TrimSpace(distanceStr))
 
 	timeMin := int(math.Floor(float64(timeInt / 2)))
 	for distance < timeMin*(timeInt-timeMin) {
-		winningTimes = append(winningTimes, timeMin)
 		timeMin--
 	}
 	timeMax := int(math.Floor(float64(timeInt/2))) + 1
 	for distance < timeMax*(timeInt-timeMax) {
-		winningTimes = append(winningTimes, timeMax)
 		timeMax++
 	}
 
-	winningTimesCounts = append(winningTimesCounts, len(winningTimes))
+	winningTimesCounts = append(winningTimesCounts, timeMax-timeMin-1)
 
 	result := winningTimesCounts[0]
 	for i := 1; i < len(winningTimesCounts); i++ {

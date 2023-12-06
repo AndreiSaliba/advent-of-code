@@ -24,29 +24,26 @@ func main() {
 
 	start := time.Now()
 	for i, distanceStr := range distances {
-		var winningTimes []int
 		distance, _ := strconv.Atoi(distanceStr)
 		time, _ := strconv.Atoi(times[i])
 
 		timeMin := int(math.Floor(float64(time / 2)))
 		for distance < timeMin*(time-timeMin) {
-			winningTimes = append(winningTimes, timeMin)
 			timeMin--
 		}
 		timeMax := int(math.Floor(float64(time/2))) + 1
 		for distance < timeMax*(time-timeMax) {
-			winningTimes = append(winningTimes, timeMax)
 			timeMax++
 		}
 
-		winningTimesCounts = append(winningTimesCounts, len(winningTimes))
+		winningTimesCounts = append(winningTimesCounts, timeMax-timeMin-1)
 	}
 
 	result := winningTimesCounts[0]
 	for i := 1; i < len(winningTimesCounts); i++ {
 		result = result * winningTimesCounts[i]
 	}
-	
+
 	fmt.Println("Done in", time.Since(start))
 	fmt.Println(result)
 }
