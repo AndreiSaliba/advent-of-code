@@ -36,7 +36,7 @@ func main() {
 		}
 	}
 
-	fmt.Println("Closest Location:", slices.Min(seeds))
+	fmt.Println(slices.Min(seeds))
 }
 
 func GetMapResult(almanacMap string, input int) int {
