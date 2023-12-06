@@ -16,12 +16,10 @@ func main() {
 		return
 	}
 
+	start := time.Now()
 	lines := strings.Split(strings.TrimSuffix(string(file), "\n"), "\n")
 	timeStr := strings.ReplaceAll(lines[0][strings.Index(lines[0], ":")+1:], " ", "")
 	distanceStr := strings.ReplaceAll(lines[1][strings.Index(lines[1], ":")+1:], " ", "")
-	start := time.Now()
-
-	var winningTimesCounts []int
 
 	timeInt, _ := strconv.Atoi(strings.TrimSpace(timeStr))
 	distance, _ := strconv.Atoi(strings.TrimSpace(distanceStr))
@@ -35,13 +33,6 @@ func main() {
 		timeMax++
 	}
 
-	winningTimesCounts = append(winningTimesCounts, timeMax-timeMin-1)
-
-	result := winningTimesCounts[0]
-	for i := 1; i < len(winningTimesCounts); i++ {
-		result = result * winningTimesCounts[i]
-	}
-
 	fmt.Println("Done in", time.Since(start))
-	fmt.Println(result)
+	fmt.Println(timeMax - timeMin - 1)
 }
