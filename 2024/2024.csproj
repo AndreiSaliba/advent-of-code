@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>AOC2024</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>AOC2024</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AoCHelper" Version="4.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="Inputs\*">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+</Project>
